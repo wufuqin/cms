@@ -23,4 +23,9 @@ public class TestController {
         System.out.println(count);
     }
 
+    @RequestMapping("testAdmin")
+    public String testAdmin(){
+        return "admin/test/index";
+    }
+
 }
