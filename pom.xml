@@ -81,6 +81,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${springVersion}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--Java对象（POJO）和 XML 文档之间来回转换。-->
         <dependency>
@@ -111,12 +117,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
             <version>${springVersion}</version>
-        </dependency>
-        <!--aop-->
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${aspectjweaverVersion}</version>
         </dependency>
         <!--mybatis-->
         <dependency>
@@ -150,9 +150,9 @@
 
         <!--日志-->
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4jVersion}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.25</version>
         </dependency>
 
         <!--freemarker-->
@@ -177,7 +177,7 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
-            <version>1.6.2.RELEASE</version>
+            <version>1.8.16.RELEASE</version>
         </dependency>
 
         <!--kaptcha验证码-->
