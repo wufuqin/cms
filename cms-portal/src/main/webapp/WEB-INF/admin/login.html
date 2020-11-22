@@ -46,8 +46,10 @@
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-vercode" for="captcha"></label>
                     <input type="text" name="captcha" lay-verify="required|captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
-                    <div class="captcha-img">
-                        <img id="captchaPic" src="../images/captcha.jpg">
+                    <!-- 添加一个style样式，使得鼠标移到验证码图片上时显示为一个手型  style="cursor: pointer;" -->
+                    <div class="captcha-img" style="cursor: pointer;">
+                        <!-- 直接调用controller里面生成验证码的方法，将验证码图片显示在登录页面的具体位置，添加随机数，使得每次点击之后可以达到刷新验证码的目的 -->
+                        <img id="captchaPic" src="/admin/cms/doCaptcha.do" onclick="this.src='/admin/cms/doCaptcha.do?random'+Math.random()">
                     </div>
                 </div>
                 <div class="layui-form-item">

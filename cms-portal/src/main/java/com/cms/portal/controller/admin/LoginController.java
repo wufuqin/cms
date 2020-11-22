@@ -1,6 +1,7 @@
 package com.cms.portal.controller.admin;
 
 import com.google.code.kaptcha.Producer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import java.io.IOException;
  */
 @SuppressWarnings("all")
 @Controller
+@Slf4j
 public class LoginController {
 
     // 注入验证码对象
@@ -30,7 +32,7 @@ public class LoginController {
      *
      * @return
      */
-    @GetMapping("toLogin.do")
+    @GetMapping("login.do")
     public String toLogin() {
         return "admin/login";
     }
@@ -50,6 +52,7 @@ public class LoginController {
             ImageIO.write(image,"jpg",outputStream);
         }catch (IOException e){
             e.printStackTrace();
+            log.error("验证码错误");
         }
 
         // 方法一：将验证码图片响应到页面上，繁琐的方法
