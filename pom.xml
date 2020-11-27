@@ -67,7 +67,6 @@
         <fasterxmlUuidVersion>3.1.4</fasterxmlUuidVersion>
     </properties>
 
-    <!-- 需要的jar包 -->
     <dependencies>
         <!--servlet-->
         <dependency>
@@ -147,28 +146,24 @@
             <artifactId>druid</artifactId>
             <version>${druidVersion}</version>
         </dependency>
-
         <!--日志-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.25</version>
         </dependency>
-
         <!--freemarker-->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>${freemarkerVersion}</version>
         </dependency>
-
         <!--flyway-->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>${flywayVersion}</version>
         </dependency>
-
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
@@ -179,8 +174,7 @@
             <artifactId>spring-data-redis</artifactId>
             <version>1.8.16.RELEASE</version>
         </dependency>
-
-        <!--kaptcha验证码-->
+        <!--kaptcha-->
         <dependency>
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
@@ -192,22 +186,19 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!-- lombok -->
+        <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombokVersion}</version>
             <scope>provided</scope>
         </dependency>
-
         <!--ehcache-->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
             <version>${ehcacheCoreVersion}</version>
         </dependency>
-
         <!--shiro-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
@@ -226,9 +217,12 @@
             <artifactId>shiro-spring</artifactId>
             <version>${shiroVersion}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commonsLang3Version}</version>
+        </dependency>
     </dependencies>
-
     <build>
         <resources>
             <!-- mapper.xml文件在java目录下 -->
@@ -241,7 +235,6 @@
             <!-- mapper.xml文件在resources目录下-->
         </resources>
     </build>
-
 </project>
 
 

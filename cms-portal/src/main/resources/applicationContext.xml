@@ -23,30 +23,10 @@
         <property name="fileEncoding" value="utf-8"/>
     </bean>
 
-    <!--引入mybatis配置-->
+    <!--引入其他-->
     <import resource="classpath:applicationContext-datasource.xml"/>
-    <!-- 引入redis配置 -->
     <import resource="classpath:applicationContext-redis.xml"/>
-    <!-- 验证码配置 -->
     <import resource="classpath:applicationContext-configuration.xml"/>
-    <!-- shiro配置 -->
     <import resource="classpath:applicationContext-shiro.xml"/>
 
 </beans>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

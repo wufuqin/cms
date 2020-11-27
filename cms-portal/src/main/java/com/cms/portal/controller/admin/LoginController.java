@@ -40,7 +40,7 @@ public class LoginController {
     /**
      * 生成验证码
      */
-    @GetMapping("doCaptcha.do")
+    @GetMapping("captcha.do")
     public void doCaptcha(HttpServletResponse httpServletResponse) {
         // 生成验证码
         String text = captchaProducer.createText();

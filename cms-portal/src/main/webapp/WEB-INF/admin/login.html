@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="/admin/layui-v2.5.4/css/layui.css" media="all">
+    <link rel="stylesheet" href="${basePath}/admin/layui/css/layui.css" media="all">
     <style>
         html, body {width: 100%;height: 100%;overflow: hidden}
         body {background: #009688;}
@@ -46,10 +46,8 @@
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-vercode" for="captcha"></label>
                     <input type="text" name="captcha" lay-verify="required|captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
-                    <!-- 添加一个style样式，使得鼠标移到验证码图片上时显示为一个手型  style="cursor: pointer;" -->
                     <div class="captcha-img" style="cursor: pointer;">
-                        <!-- 直接调用controller里面生成验证码的方法，将验证码图片显示在登录页面的具体位置，添加随机数，使得每次点击之后可以达到刷新验证码的目的 -->
-                        <img id="captchaPic" src="/admin/cms/doCaptcha.do" onclick="this.src='/admin/cms/doCaptcha.do?random'+Math.random()">
+                        <img id="captchaPic" src="${adminPath}/captcha.do" onclick="this.src='${adminPath}/captcha.do?random='+Math.random()">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -62,9 +60,9 @@
         </div>
     </div>
 </div>
-<script src="/common/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
-<script src="/admin/layui-v2.5.4/layui.js" charset="utf-8"></script>
-<script src="/common/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
+<script src="${basePath}/common/js/jq.js" charset="utf-8"></script>
+<script src="${basePath}/admin/layui/layui.js" charset="utf-8"></script>
+<script src="${basePath}/admin/js/jquery.particleground.min.js" charset="utf-8"></script>
 <script>
     layui.use(['form'], function () {
         var form = layui.form,

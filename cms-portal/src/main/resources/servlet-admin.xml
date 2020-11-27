@@ -11,5 +11,4 @@
 
     <!--引入公共的配置-->
     <import resource="classpath:servlet-common.xml"/>
-
 </beans>
