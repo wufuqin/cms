@@ -1,16 +1,14 @@
 package com.cms.portal.controller.admin;
 
-import com.google.code.kaptcha.Producer;
+import com.cms.context.utils.UtilsShiro;
+import com.cms.service.api.CommonService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /**
  * 后台登录控制器
@@ -23,9 +21,8 @@ import java.io.IOException;
 @Slf4j
 public class LoginController {
 
-    // 注入验证码对象
     @Autowired
-    private Producer captchaProducer;
+    private CommonService commonService;
 
     /**
      * 去到后台登录页面
@@ -34,7 +31,12 @@ public class LoginController {
      */
     @GetMapping("login.do")
     public String toLogin() {
-        return "admin/login";
+        Subject subject = UtilsShiro.getSubject();
+        if(subject.isAuthenticated()){
+            // 重定向，避免重复登录
+            return "redirect:index.do";
+        }
+        return "/admin/login";
     }
 
     /**
@@ -42,34 +44,8 @@ public class LoginController {
      */
     @GetMapping("captcha.do")
     public void doCaptcha(HttpServletResponse httpServletResponse) {
-        // 生成验证码
-        String text = captchaProducer.createText();
-        // 生成验证码图片
-        BufferedImage image = captchaProducer.createImage(text);
-
-        // 方法二：将验证码图片响应到页面上，使用语法糖，不需要手动关闭流
-        try (ServletOutputStream outputStream = httpServletResponse.getOutputStream()){
-            ImageIO.write(image,"jpg",outputStream);
-        }catch (IOException e){
-            e.printStackTrace();
-            log.error("验证码错误");
-        }
-
-        // 方法一：将验证码图片响应到页面上，繁琐的方法
-       /* ServletOutputStream outputStream = null;
-        try {
-            outputStream = httpServletResponse.getOutputStream();
-            ImageIO.write(image,"jpg",outputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                // 将流关闭
-                outputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
+       // 调用公共接口中的生成验证码方法生成验证码
+       commonService.imageCaptcha();
 
     }
 

@@ -33,10 +33,6 @@ public class CmsViewResolver extends FreeMarkerView {
         // 返回除去host（域名或者ip）部分的路径
         String requestURI = request.getRequestURI();
 
-        System.out.println(contextPath);
-        System.out.println(servletPath);
-        System.out.println(requestURI);
-
         if(requestURI.contains(ADMIN_PATH)){
             // 带有 /admin/cms/ 判断为后台路径
             model.put("adminPath",contextPath+servletPath);

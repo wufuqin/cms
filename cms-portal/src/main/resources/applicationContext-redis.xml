@@ -18,8 +18,10 @@
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="poolConfig" ref="poolConfig"/>
         <property name="usePool" value="true"/>
-        <property name="hostName" value="127.0.0.1"/>
+        <property name="hostName" value="192.168.0.116"/>
+        <property name="password" value="wufuqin"/>
         <property name="database" value="0"/>
+        <property name="port" value="6379"/>
     </bean>
 
     <!--使用spring为我们配置好的redisTemplate来操作redis-->

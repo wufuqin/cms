@@ -37,15 +37,15 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" for="username"></label>
-                    <input type="text" name="username" lay-verify="required|account" placeholder="用户名或者邮箱" autocomplete="off" class="layui-input" value="admin">
+                    <input type="text" name="username" lay-verify="required"  placeholder="用户名或者邮箱" autocomplete="off" class="layui-input" value="admin">
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-password" for="password"></label>
-                    <input type="password" name="password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" value="123456">
+                    <input type="password" name="password" lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input" value="a1234567">
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-vercode" for="captcha"></label>
-                    <input type="text" name="captcha" lay-verify="required|captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
+                    <input type="text" name="captcha"  lay-verify="required" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="1234">
                     <div class="captcha-img" style="cursor: pointer;">
                         <img id="captchaPic" src="${adminPath}/captcha.do" onclick="this.src='${adminPath}/captcha.do?random='+Math.random()">
                     </div>
@@ -54,7 +54,7 @@
                     <input type="checkbox" name="rememberMe" value="true" lay-skin="primary" title="记住密码">
                 </div>
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="login">登 入</button>
+                    <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="go">登 入</button>
                 </div>
             </form>
         </div>
@@ -63,43 +63,41 @@
 <script src="${basePath}/common/js/jq.js" charset="utf-8"></script>
 <script src="${basePath}/admin/layui/layui.js" charset="utf-8"></script>
 <script src="${basePath}/admin/js/jquery.particleground.min.js" charset="utf-8"></script>
+<script src="${basePath}/admin/js/core.js" charset="utf-8"></script>
+
 <script>
-    layui.use(['form'], function () {
-        var form = layui.form,
-            layer = layui.layer;
-
-        // 登录过期的时候，跳出ifram框架
-        if (top.location != self.location) top.location = self.location;
-
-        // 粒子线条背景
-        $(document).ready(function(){
-            $('.layui-container').particleground({
-                dotColor:'#5cbdaa',
-                lineColor:'#5cbdaa'
-            });
-        });
-
-        // 进行登录操作
-        form.on('submit(login)', function (data) {
-            data = data.field;
-            if (data.username == '') {
-                layer.msg('用户名不能为空');
-                return false;
-            }
-            if (data.password == '') {
-                layer.msg('密码不能为空');
-                return false;
-            }
-            if (data.captcha == '') {
-                layer.msg('验证码不能为空');
-                return false;
-            }
-            layer.msg('登录成功', function () {
-                window.location = '/index.html';
-            });
-            return false;
+    // 粒子线条背景
+    $(document).ready(function(){
+        $('.layui-container').particleground({
+            dotColor:'#5cbdaa',
+            lineColor:'#5cbdaa'
         });
     });
+    $('input[name="username"]').focus();
+
+    LayUtil.form.init(function(inner,form){
+        inner.submit(function(data){
+            core.throttle(submit,data.field);
+        })
+    });
+
+    /**
+     * 处理登录
+     * @param data
+     */
+    function submit(data) {
+        core.http({
+            url:"${adminPath}/login.do",
+            data:data
+        },function(res){
+            if(res.restCode===CONSTANT.HTTP.SUCCESS){
+                setTimeout(function(){
+                    // 登录成功之后跳转的路径
+                    location.href = "${adminPath}/index.do";
+                },600)
+            }
+        });
+    }
 </script>
 </body>
 </html>

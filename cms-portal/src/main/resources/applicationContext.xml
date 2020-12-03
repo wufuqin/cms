@@ -23,10 +23,13 @@
         <property name="fileEncoding" value="utf-8"/>
     </bean>
 
-    <!--引入其他-->
+    <!-- 数据源datasource -->
     <import resource="classpath:applicationContext-datasource.xml"/>
+    <!-- redis -->
     <import resource="classpath:applicationContext-redis.xml"/>
+    <!-- 验证码 -->
     <import resource="classpath:applicationContext-configuration.xml"/>
+    <!-- shiro -->
     <import resource="classpath:applicationContext-shiro.xml"/>
 
 </beans>

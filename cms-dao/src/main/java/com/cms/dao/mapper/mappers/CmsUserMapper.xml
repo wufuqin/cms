@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.dao.mapper.CmsUserMapper">
+
+    <!-- 主表用户的xml文件 -->
+
+    <!-- 封装基本字段 -->
+    <sql id="baseColumn">
+        id,
+        username,
+        status
+    </sql>
+
+    <!-- 定义更新时的基本字段 -->
+    <sql id="updateField">
+        update_time = #{updateTime}
+        <if test="sessionId!=null and sessionId!=''">
+            session_id = #{sessionId}
+        </if>
+        <if test="lastLoginIp!=null and lastLoginIp!=''">
+            last_login_ip = #{lastLoginIp}
+        </if>
+    </sql>
+
+    <!-- 封装字段映射 -->
+    <resultMap id="baseResultMap" type="com.cms.dao.entity.CmsUserEntity">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <!-- 根据用户名查找 -->
+    <select id="getByUsername"  resultMap="baseResultMap">
+        select <include refid="baseColumn"/>
+        from cms_user
+        where username = #{username} and deleted = 1
+    </select>
+
+    <!-- 根据id更新用户信息 -->
+    <update id="update">
+        update cms_user
+        <trim prefix="set" suffixOverrides=",">
+            <include refid="updateField"/>
+        </trim>
+        where id = #{id}
+    </update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
