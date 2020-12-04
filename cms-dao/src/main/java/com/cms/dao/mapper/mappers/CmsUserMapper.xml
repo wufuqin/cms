@@ -13,12 +13,12 @@
 
     <!-- 定义更新时的基本字段 -->
     <sql id="updateField">
-        update_time = #{updateTime}
+        update_time = #{updateTime},
         <if test="sessionId!=null and sessionId!=''">
-            session_id = #{sessionId}
+            session_id = #{sessionId},
         </if>
         <if test="lastLoginIp!=null and lastLoginIp!=''">
-            last_login_ip = #{lastLoginIp}
+            last_login_ip = #{lastLoginIp},
         </if>
     </sql>
 

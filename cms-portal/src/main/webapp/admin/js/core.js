@@ -10,41 +10,41 @@ let core={
         this.cancel && this.cancel.abort();
         let opt={load:true},loadHandler,loadTime,
             options ={
-                url:"",
-                method:"post",
-                contentType:"application/x-www-form-urlencoded",
-                dataType:"json",
-                beforeSend:function(){
-                    this.load &&  ((loadTime = new Date().getTime()) && (loadHandler = LayUtil.layer.init(function(inner,layer){
-                        inner.loading(0,{shade:0.1})
-                    })))
-                },
-                success:function(res){
-                    //处理loading 加载
-                    if(this.load && loadHandler){
-                        let time = 0;
-                        if(new Date().getTime()-loadTime<500){
-                            time = 500;
-                        }
-                        setTimeout(function(){
-                            loadHandler.closeLoading();
-                        },time)
+            url:"",
+            method:"post",
+            contentType:"application/x-www-form-urlencoded",
+            dataType:"json",
+            beforeSend:function(){
+                this.load &&  ((loadTime = new Date().getTime()) && (loadHandler = LayUtil.layer.init(function(inner,layer){
+                    inner.loading(0,{shade:0.1})
+                })))
+            },
+            success:function(res){
+                //处理loading 加载
+                if(this.load && loadHandler){
+                    let time = 0;
+                    if(new Date().getTime()-loadTime<500){
+                        time = 500;
                     }
-                    //判断请求接口
-                    switch(res.restCode){
-                        case CONSTANT.HTTP.SUCCESS:
-                            core.prompt.msg(res.restInfo,{shade:0.3,time:1200},null);
-                            break;
-                        case CONSTANT.HTTP.ERROR:
-                            break;
-                    }
-
-
-
-                    //处理自定义回调
-                    (callback instanceof Function) && callback(res)
+                    setTimeout(function(){
+                        loadHandler.closeLoading();
+                    },time)
                 }
-            };
+                //判断请求接口
+                switch(res.restCode){
+                    case CONSTANT.HTTP.SUCCESS:
+                        core.prompt.msg(res.restInfo,{shade:0.3,time:1200},null);
+                        break;
+                    case CONSTANT.HTTP.ERROR:
+                        break;
+                }
+
+
+
+                //处理自定义回调
+                (callback instanceof Function) && callback(res)
+            }
+        };
         Object.assign(opt,options,option);
         this.cancel=$.ajax(opt);
     },
@@ -60,11 +60,11 @@ let core={
 };
 
 const  CONSTANT = {
-    //http相关
-    HTTP:{
-        SUCCESS:200,
-        ERROR:500
-    }
+  //http相关
+  HTTP:{
+      SUCCESS:200,
+      ERROR:500
+  }
 
 
 
@@ -121,11 +121,11 @@ LayUtil.prototype = {
             init:function(callback){
                 let that =this;
                 layui.use('form',function(){
-                    that.form = layui.form;
-                    that.form.render();
-                    if(callback instanceof Function){
-                        callback(that,that.form)
-                    }
+                        that.form = layui.form;
+                        that.form.render();
+                        if(callback instanceof Function){
+                            callback(that,that.form)
+                        }
                 });
                 return this;
             },

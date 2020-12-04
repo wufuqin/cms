@@ -2,8 +2,6 @@ package com.cms.dao.entity;
 
 import com.cms.core.foundation.BaseEntity;
 
-import java.io.Serializable;
-
 /**
  * 副表的用户实体类
  * @Author: 可乐
@@ -15,7 +13,7 @@ public class CmsUserEntity extends BaseEntity<Integer> {
     private Integer status;              // 状态
     private Boolean admin;               // 是否为后台管理
     private String lastLoginIp;          // 用户的IP
-    private Serializable sessionId;      // 用户的sessionId
+    private String sessionId;      // 用户的sessionId
     /**
      * 超级管理员
      */
@@ -53,11 +51,11 @@ public class CmsUserEntity extends BaseEntity<Integer> {
         this.lastLoginIp = lastLoginIp;
     }
 
-    public Serializable getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(Serializable sessionId) {
+    public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
 

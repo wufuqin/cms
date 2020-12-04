@@ -30,6 +30,11 @@
                 <property name="lazyLoadTriggerMethods" value=""/>
             </bean>
         </property>
+        <property name="plugins">
+            <array>
+                <bean id="baseInterceptor" class="com.cms.context.interceptor.BaseInterceptor"/>
+            </array>
+        </property>
     </bean>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">

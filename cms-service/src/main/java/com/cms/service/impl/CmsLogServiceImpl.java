@@ -35,7 +35,7 @@ public class CmsLogServiceImpl implements CmsLogService {
      */
     @Override
     public void update(CmsLogDto dto) {
-
+        cmsLogMapper.update(CmsLogConverter.CONVERTER.DtoToEntity(dto));
     }
 
     /**

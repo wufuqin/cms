@@ -38,7 +38,7 @@ public class CmsUserServiceImpl implements CmsUserService {
      */
     @Override
     public void save(CmsUserDto dto) {
-        cmsUserMapper.update(CmsUserConverter.CONVERTER.dtoToEntity(dto));
+        cmsUserMapper.save(CmsUserConverter.CONVERTER.dtoToEntity(dto));
     }
 
     /**
@@ -48,6 +48,7 @@ public class CmsUserServiceImpl implements CmsUserService {
      */
     @Override
     public void update(CmsUserDto dto) {
+        cmsUserMapper.update(CmsUserConverter.CONVERTER.dtoToEntity(dto));
     }
 
     /**

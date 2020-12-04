@@ -1,6 +1,7 @@
 package com.cms.portal.controller.admin;
 
 import com.cms.context.utils.UtilsShiro;
+import com.cms.context.utils.UtilsTemplate;
 import com.cms.service.api.CommonService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.subject.Subject;
@@ -36,7 +37,7 @@ public class LoginController {
             // 重定向，避免重复登录
             return "redirect:index.do";
         }
-        return "/admin/login";
+        return UtilsTemplate.adminTemplate("login");
     }
 
     /**

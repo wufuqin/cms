@@ -21,7 +21,7 @@ public class UtilsShiro {
     }
 
     /**
-     * 通过shiro获取session
+     * 通过shiro获取subject
      * @return
      */
     public static Subject getSubject(){

@@ -3,8 +3,6 @@ package com.cms.service.dto;
 import com.cms.core.foundation.BaseDto;
 import com.cms.dao.enums.UserStatusEnum;
 
-import java.io.Serializable;
-
 /**
  * 用户副表的dto类
  *      封装需要转换的字段
@@ -18,7 +16,7 @@ public class CmsUserDto extends BaseDto<Integer> {
     private UserStatusEnum status;      // 状态
     private Boolean admin;              // 是否为后台管理
     private String lastLoginIp;         // 用户的IP
-    private Serializable sessionId;     // 用户的sessionId
+    private String sessionId;     // 用户的sessionId
     /**
      * 超级管理员
      */
@@ -56,11 +54,11 @@ public class CmsUserDto extends BaseDto<Integer> {
         this.lastLoginIp = lastLoginIp;
     }
 
-    public Serializable getSessionId() {
+    public String getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(Serializable sessionId) {
+    public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
 
