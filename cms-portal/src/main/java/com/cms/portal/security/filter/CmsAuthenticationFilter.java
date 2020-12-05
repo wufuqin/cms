@@ -18,6 +18,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -43,6 +44,11 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 
     @Autowired
     private CmsLogService cmsLogService;
+
+
+    // 注入线程池对象
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     /**
      * 判断用户的登录请求，将其重定向到登录页面
@@ -96,11 +102,8 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
             writer.write(JSON.toJSONString(Result.failed(e.getMessage())));
         }catch (Exception e){
             //用户有可能已经登录 其他错误
-            if(subject.isAuthenticated()){
-                writer.write(JSON.toJSONString(Result.success("登录成功")));
-            }else{
-                writer.write(JSON.toJSONString(Result.failed(ConstantsPool.EXCEPTION_NETWORK_ERROR)));
-            }
+            //用户有可能已经登录 其他错误
+            writer.write(JSON.toJSONString((subject.isAuthenticated()?Result.success("登录成功"):Result.failed(ConstantsPool.EXCEPTION_NETWORK_ERROR))));
         }
         writer.close();
         // 返回false是不需要自动跳转页面，跳转到前端指定的页面
@@ -121,18 +124,20 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
 
         // 获取当前登录用户的IP地址
         String ip = UtilsHttp.getRemoteAddress();
-        // 获取当前用户的信息
-        CmsUserDto cmsUserDto = (CmsUserDto) subject.getPrincipal();
         // 获取用户的请求路径
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String url = httpServletRequest.getRequestURI();
-        // 获取sessionId
-        cmsUserDto.setSessionId(UtilsShiro.getSession().getId().toString());
-        // 更新用户副表中的数据
-        cmsUserService.update(cmsUserDto);
-        // 将数据保存到日志表中
-        cmsLogService.save(CmsLogDto.of(cmsUserDto.getId(),cmsUserDto.getUsername(),ip,url,"用户后台系统登录"));
-
+        // 使用多线程的方式异步写入登录日志
+        threadPoolTaskExecutor.execute(()->{
+            // 获取当前用户的信息
+            CmsUserDto cmsUserDto = (CmsUserDto) subject.getPrincipal();
+            // 获取sessionId
+            cmsUserDto.setSessionId(UtilsShiro.getSession().getId().toString());
+            // 更新用户副表中的数据
+            cmsUserService.update(cmsUserDto);
+            // 将数据保存到日志表中
+            cmsLogService.save(CmsLogDto.of(cmsUserDto.getId(),cmsUserDto.getUsername(),ip,url,"用户后台系统登录"));
+        });
         return false;
     }
 }

@@ -16,17 +16,27 @@ public class UtilsTemplate {
 
     /**
      * 后台模板方法
-     * @param template      模板
-     * @return              string
+     * @param template
+     * @return              模板名称
      */
     public static String adminTemplate(String template){
         return "admin/"+template;
     }
 
     /**
+     * 后台模板方法
+     * @param dir       模板目录
+     * @param template
+     * @return          模板名称
+     */
+    public static String adminTemplate(String dir, String template) {
+        return "admin/" + dir + "/" + template;
+    }
+
+    /**
      * 前台模板方法
      * @param template      模板
-     * @return              string
+     * @return              模板名称
      */
     public static String filterTemplate(String template){
         return "filter/default/"+template;

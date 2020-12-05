@@ -57,7 +57,7 @@ public class CommonServiceImpl implements CommonService {
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
-        //推荐大家自己来关闭response流
+        // 推荐大家自己来关闭response流
         try (ServletOutputStream outputStream = response.getOutputStream()) {
             ImageIO.write(captchaProducer.createImage(text), "jpg", outputStream);
         } catch (IOException e) {
