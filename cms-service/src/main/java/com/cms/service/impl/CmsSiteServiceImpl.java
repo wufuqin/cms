@@ -1,7 +1,10 @@
 package com.cms.service.impl;
 
+import com.cms.dao.mapper.CmsSiteMapper;
 import com.cms.service.api.CmsSiteService;
+import com.cms.service.converter.CmsSiteConverter;
 import com.cms.service.dto.CmsSiteDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,6 +15,9 @@ import org.springframework.stereotype.Service;
 @SuppressWarnings("all")
 @Service
 public class CmsSiteServiceImpl implements CmsSiteService {
+
+    @Autowired
+    private CmsSiteMapper cmsSiteMapper;
 
     /**
      * 添加
@@ -24,13 +30,13 @@ public class CmsSiteServiceImpl implements CmsSiteService {
     }
 
     /**
-     * 修改
+     * 修改站点配置
      *
      * @param dto
      */
     @Override
     public void update(CmsSiteDto dto) {
-
+        cmsSiteMapper.update(CmsSiteConverter.CONVERTER.dtoToEntity(dto));
     }
 
     /**
@@ -42,6 +48,16 @@ public class CmsSiteServiceImpl implements CmsSiteService {
     @Override
     public CmsSiteDto getById(Integer id) {
         return null;
+    }
+
+    /**
+     * 查询当前站点的信息
+     *
+     * @return
+     */
+    @Override
+    public CmsSiteDto get() {
+        return CmsSiteConverter.CONVERTER.entityToDto(cmsSiteMapper.selectById(1));
     }
 }
 

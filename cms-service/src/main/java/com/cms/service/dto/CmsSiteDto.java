@@ -1,6 +1,7 @@
 package com.cms.service.dto;
 
 import com.cms.core.foundation.BaseDto;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 站点配置的Dto
@@ -9,9 +10,12 @@ import com.cms.core.foundation.BaseDto;
  */
 @SuppressWarnings("all")
 public class CmsSiteDto extends BaseDto<Integer> {
-    private String siteName;     // 网站名称
-    private String keywords;     // 站点关键字
-    private String description;  // 站点描述
+    @NotBlank(message = "请输入站点名称")
+    private String siteName;                    // 网站名称
+    @NotBlank(message = "请输入站点关键字")
+    private String keywords;                    // 站点关键字
+    @NotBlank(message = "请输入站点描述")
+    private String description;                 // 站点描述
 
     public String getSiteName() {
         return siteName;

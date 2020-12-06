@@ -54,7 +54,7 @@
                     <input type="checkbox" name="rememberMe" value="true" lay-skin="primary" title="记住密码">
                 </div>
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="go">登 入</button>
+                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="go">登 入</button>
                 </div>
             </form>
         </div>
@@ -67,12 +67,12 @@
 
 <script>
     // 粒子线条背景
-    $(document).ready(function(){
-        $('.layui-container').particleground({
-            dotColor:'#5cbdaa',
-            lineColor:'#5cbdaa'
-        });
-    });
+    // $(document).ready(function(){
+    //     $('.layui-container').particleground({
+    //         dotColor:'#5cbdaa',
+    //         lineColor:'#5cbdaa'
+    //     });
+    // });
     $('input[name="username"]').focus();
 
     LayUtil.form.init(function(inner,form){
@@ -81,18 +81,14 @@
         })
     });
 
-    /**
-     * 处理登录
-     * @param data
-     */
     function submit(data) {
         core.http({
             url:"${adminPath}/login.do",
             data:data
         },function(res){
             if(res.restCode===CONSTANT.HTTP.SUCCESS){
+                layer.msg(res.restInfo);
                 setTimeout(function(){
-                    // 登录成功之后跳转的路径
                     location.href = "${adminPath}/index.do";
                 },600)
             }

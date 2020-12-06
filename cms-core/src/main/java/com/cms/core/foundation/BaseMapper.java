@@ -18,7 +18,7 @@ public interface BaseMapper<ENTITY extends BaseEntity<PK>,PK extends Serializabl
     public void save(ENTITY entity);
 
     /**
-     * 修改
+     * 修改站点配置
      * @param entity
      */
     public void update(ENTITY entity);
