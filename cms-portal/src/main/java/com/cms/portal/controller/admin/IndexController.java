@@ -1,6 +1,7 @@
 package com.cms.portal.controller.admin;
 
 import com.cms.context.utils.UtilsTemplate;
+import com.cms.core.annotation.DoLog;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -18,6 +19,7 @@ public class IndexController {
      * @return
      */
     @GetMapping("index.do")
+    @DoLog(content = "用户后台系统登录")
     public String toIndex(){
         return UtilsTemplate.adminTemplate("index");
     }

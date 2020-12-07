@@ -5,6 +5,7 @@ import com.cms.context.constant.ConstantsPool;
 import com.cms.context.foundation.Result;
 import com.cms.context.utils.UtilsHttp;
 import com.cms.context.utils.UtilsShiro;
+import com.cms.core.annotation.DoLog;
 import com.cms.service.api.CmsLogService;
 import com.cms.service.api.CmsUserService;
 import com.cms.service.api.CommonService;
@@ -102,7 +103,6 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
             writer.write(JSON.toJSONString(Result.failed(e.getMessage())));
         } catch (Exception e) {
             //用户有可能已经登录 其他错误
-            //用户有可能已经登录 其他错误
             writer.write(JSON.toJSONString((subject.isAuthenticated() ? Result.success("登录成功") : Result.failed(ConstantsPool.EXCEPTION_NETWORK_ERROR))));
         }
         writer.close();
@@ -123,7 +123,7 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
     @Override
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
 
-        // 获取当前登录用户的IP地址
+        /*// 获取当前登录用户的IP地址
         String ip = UtilsHttp.getRemoteAddress();
         // 获取用户的请求路径
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -138,7 +138,7 @@ public class CmsAuthenticationFilter extends FormAuthenticationFilter {
             cmsUserService.update(cmsUserDto);
             // 将数据保存到日志表中
             cmsLogService.save(CmsLogDto.of(cmsUserDto.getId(), cmsUserDto.getUsername(), ip, url, "用户后台系统登录"));
-        });
+        });*/
         return false;
     }
 }

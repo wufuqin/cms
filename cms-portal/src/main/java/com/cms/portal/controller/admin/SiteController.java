@@ -2,6 +2,7 @@ package com.cms.portal.controller.admin;
 
 import com.cms.context.foundation.Result;
 import com.cms.context.utils.UtilsTemplate;
+import com.cms.core.annotation.DoLog;
 import com.cms.core.annotation.DoValid;
 import com.cms.service.api.CmsSiteService;
 import com.cms.service.dto.CmsSiteDto;
@@ -50,6 +51,7 @@ public class SiteController {
     @PostMapping("edit.do")
     @ResponseBody
     @DoValid
+    @DoLog(content = "修改站点配置")
     public Result doEdit(@Valid CmsSiteDto cmsSiteDto, BindingResult result){
         cmsSiteService.update(cmsSiteDto);
         return Result.success("修改成功");
