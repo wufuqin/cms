@@ -13,15 +13,16 @@
 </#macro>
 
 <#--    item中左右两边的inline-->
-<#macro inline label="">
+<#macro inline required=false label="">
     <div class="layui-inline cms-inline-50">
-        <label class="layui-form-label layui-col-md6" style="width:197px;">${label}</label>
+        <label class="layui-form-label layui-col-md6 <#if required>cms-label-required</#if>" style="width:197px;">${label}</label>
         <div class="layui-input-block layui-col-md6 cms-inline-block">
             <#nested>
         </div>
     </div>
 </#macro>
 
+<#--提交按钮-->
 <#macro submit>
     <div class="layui-form-item">
         <div class="layui-inline cms-inline-50">
@@ -40,4 +41,11 @@
             </div>
         </div>
     </div>
+</#macro>
+
+<#--单选框    -->
+<#macro radio list name value="">
+    <#list list as item>
+        <input type="radio" name="${name}" title="${item.label}" <#if value=="${item.getOrdinal()}">checked</#if> value="${item.getOrdinal()}">
+    </#list>
 </#macro>

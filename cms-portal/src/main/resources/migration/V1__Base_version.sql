@@ -1,5 +1,5 @@
 -- ----------------------------
---  Table structure for cms_user_primary 用户主表
+--  Table structure for cms_user_primary 用户主表  密码: a1234567
 -- ----------------------------
 CREATE TABLE cms_user_primary
 (
@@ -68,17 +68,18 @@ VALUES (2, '2019-06-14 11:30:58', null, 1, 'administrator', 'def@126.com', 1, 1,
 -- ----------------------------
 --  Table structure for cms_log  日志表
 -- ----------------------------
-CREATE TABLE cms_log (
-	  create_time timestamp  not null  default CURRENT_TIMESTAMP,
-	  update_time timestamp  not null default '0000-00-00 00:00:00',
-    id int(11) NOT NULL AUTO_INCREMENT primary key,
-    user_id int(11) not null comment '用户id',
+CREATE TABLE cms_log
+(
+    create_time timestamp    not null default CURRENT_TIMESTAMP,
+    update_time timestamp    not null default '0000-00-00 00:00:00',
+    id          int(11)      NOT NULL AUTO_INCREMENT primary key,
+    user_id     int(11)      not null comment '用户id',
     username varchar(25) not null comment '用户名称',
-    login_ip varchar(30) default '' comment 'ip地址',
-    url varchar(100) default '' comment 'URL地址',
-	  content varchar(100) null comment '日志内容'
-) ENGINE=InnoDB
-  DEFAULT CHARSET=utf8;
+    login_ip    varchar(30)           default '' comment 'ip地址',
+    url         varchar(100)          default '' comment 'URL地址',
+    content     varchar(100) null comment '日志内容'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
 
 -- ----------------------------
 -- Table structure for cms_site  站点表
@@ -94,6 +95,22 @@ CREATE TABLE cms_site
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 2
   DEFAULT CHARSET = utf8 comment ='CMS站点表';
+  INSERT INTO cms_site (id, site_name, keywords, description) VALUES (1, 'cms官网','cms,内容管理', 'cms内容管理系统');
 
-INSERT INTO cms_site (id, site_name, keywords, description)
-VALUES (1, 'cms官网','cms,内容管理', 'cms内容管理系统');
+-- ----------------------------
+-- Table structure for cms_permission  权限表
+-- ----------------------------
+CREATE TABLE cms_permission
+(
+    create_time timestamp    not null default CURRENT_TIMESTAMP,
+    update_time timestamp    not null default '0000-00-00 00:00:00',
+    id          int(11)      NOT NULL AUTO_INCREMENT primary key,
+    parent_id   int(11)      default 0 comment '父级id',
+    is_menu     tinyint(1)   default 0 comment '是否菜单 0:否 1:是',
+    icon        varchar(30)  default '' comment '菜单图标',
+    name varchar(25) not null comment '权限名称',
+    url         varchar(50) default '' comment '链接地址',
+    action      varchar(100)  default '' comment '权限码',
+    priority    int(11) NOT NULL comment '排序'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;

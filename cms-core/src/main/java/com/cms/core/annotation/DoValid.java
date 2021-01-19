@@ -3,7 +3,7 @@ package com.cms.core.annotation;
 import java.lang.annotation.*;
 
 /**
- * 自定义注解
+ * 自定义注解 : 参数校验
  *      通用验证的实现
  *              @Target 说明了Annotation所修饰的对象范围,我们只使用在方法上
  *              注解@Retention可以用来修饰注解,
@@ -17,6 +17,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface DoValid {
+
 }
 
 

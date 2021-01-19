@@ -87,7 +87,7 @@
             data:data
         },function(res){
             if(res.restCode===CONSTANT.HTTP.SUCCESS){
-                layer.msg(res.restInfo);
+                // layer.msg(res.restInfo);
                 setTimeout(function(){
                     location.href = "${adminPath}/index.do";
                 },600)
