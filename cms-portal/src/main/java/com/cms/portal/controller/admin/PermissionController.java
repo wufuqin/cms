@@ -136,7 +136,7 @@ public class PermissionController {
 
     /**
      * 去到修改页面,同时查询处需要修改的对应信息
-     * @return
+     * @return  返回对应视图
      */
     @GetMapping("edit.do")
     public String toEdit(Integer id, Model model){
